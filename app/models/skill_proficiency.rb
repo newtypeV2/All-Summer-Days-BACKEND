@@ -1,0 +1,2 @@
+class SkillProficiency < ApplicationRecord
+end
