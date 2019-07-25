@@ -1,4 +1,5 @@
 class CharClass < ApplicationRecord
+    has_many :character
     has_many :char_class_proficiencies
     has_many :proficiencies, through: :char_class_proficiencies
     has_many :char_class_skills

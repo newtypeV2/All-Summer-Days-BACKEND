@@ -32,6 +32,17 @@ classesHash["results"].map do |c| CharClass.find_or_create_by(name: c["name"]) e
             profid=Proficiency.where("name like ?","%#{st["name"]}%").first.id
             CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
         end
+        if ccid == 6
+            JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["from"].map do |profc|
+                skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
+                CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
+            end
+        else
+            JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
+                skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
+                CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
+            end
+        end
     end
 
 skillsHash = JSON.parse(RestClient.get(skillsURL))["results"].map do |skill|
@@ -44,5 +55,26 @@ end
 #     skills["name"]
 # end
 
-
+Character.find_or_create_by(
+    firstname: "Caleb",
+    lastname: "Widogast",
+    class_id: CharClass.find_by(name: "Wizard").id,
+    level: 2,
+    strength: 10,
+    dexterity: 12,
+    constitution: 14,
+    intelligence: 18,
+    wisdom: 16,
+    charisma: 16,
+    hitpoints: 12,
+    max_hp: 12,
+    age: 33,
+    height: 180,
+    weight: 180,
+    eyes: "blue",
+    skin: "gray",
+    hair: "brown",
+    background: "Liam O'Brien's Boy",
+    alignment: "True Neutral"
+)
 #  binding.pry

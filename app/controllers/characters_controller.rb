@@ -2,7 +2,14 @@ class CharactersController < ApplicationController
 
     def index 
        characters = Character.all
-       render json: characters.to_json(default)
+       render json: characters.to_json(
+        :except => [:created_at, :updated_at],
+        :include => {
+            :skills => {
+                :except => [:id,:created_at, :updated_at]
+            }
+        }
+    )
     end 
 
     def show
