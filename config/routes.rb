@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/characters' => 'characters#index'
+  get '/character/:id' => 'characters#show'
+  patch '/character/:id' => 'characters#update'
+  post '/character/:id' => 'characters#create'
+  delete '/characters/:id' => 'characters#destroy'
+  get '/skills' => 'skills#index'
+  get '/class' => 'char_classes#index'
 end
