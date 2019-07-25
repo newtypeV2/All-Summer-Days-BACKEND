@@ -7,14 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 classURL = "http://www.dnd5eapi.co/api/classes"
 proficienciesURL = "http://www.dnd5eapi.co/api/proficiencies"
+skillsURL = "http://www.dnd5eapi.co/api/skills"
 
 
 
 response = RestClient.get(proficienciesURL)
 proficiencies = JSON.parse(response)
-proficiencies["results"].filter do |prof| 
-    !(prof["name"].include?("Skill:") || prof["name"].include?("Saving Throw:"))
-end.map {|prof| Proficiency.find_or_create_by(name: prof["name"])}
+proficiencies["results"].map {|prof| Proficiency.find_or_create_by(name: prof["name"])}
+# proficiencies["results"].filter do |prof| 
+#     !(prof["name"].include?("Skill:") || prof["name"].include?("Saving Throw:"))
+# end.map {|prof| Proficiency.find_or_create_by(name: prof["name"])}
 
 response = RestClient.get(classURL)
 classesHash = JSON.parse(response)
@@ -25,9 +27,22 @@ classesHash["results"].map do |c| CharClass.find_or_create_by(name: c["name"]) e
         JSON.parse(RestClient.get(c["url"]))["proficiencies"].map do |prof|
             profid = Proficiency.find_by(name: prof["name"]).id
             CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
-
+        end
+        JSON.parse(RestClient.get(c["url"]))["saving_throws"].map do |st|
+            profid=Proficiency.where("name like ?","%#{st["name"]}%").first.id
+            CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
         end
     end
+
+skillsHash = JSON.parse(RestClient.get(skillsURL))["results"].map do |skill|
+    Skill.find_or_create_by(name: skill["name"])
+end
+# skillsHash = JSON.parse(RestClient.get(proficienciesURL))["results"].filter do |prof|
+#     prof["name"].include?("Skill:")
+# end
+# testy = skillsHash.map do |skills|
+#     skills["name"]
+# end
 
 
 binding.pry
