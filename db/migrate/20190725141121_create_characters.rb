@@ -3,14 +3,16 @@ class CreateCharacters < ActiveRecord::Migration[5.2]
     create_table :characters do |t|
       t.string :firstname
       t.string :lastname
-      t.integer :class_id
+      t.integer :char_class_id
       t.integer :level
       t.integer :strength
       t.integer :dexterity
       t.integer :constitution
       t.integer :intelligence
+      t.integer :wisdom
       t.integer :charisma
       t.integer :hitpoints
+      t.integer :max_hp
       t.integer :age
       t.integer :height
       t.integer :weight

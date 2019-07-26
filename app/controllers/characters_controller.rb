@@ -5,6 +5,9 @@ class CharactersController < ApplicationController
        render json: characters.to_json(
         :except => [:created_at, :updated_at],
         :include => {
+            :char_class=>{
+                :except => [:id,:created_at, :updated_at]
+            },
             :skills => {
                 :except => [:id,:created_at, :updated_at]
             }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_25_220414) do
+ActiveRecord::Schema.define(version: 2019_07_25_143757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,14 +38,16 @@ ActiveRecord::Schema.define(version: 2019_07_25_220414) do
   create_table "characters", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
-    t.integer "class_id"
+    t.integer "char_class_id"
     t.integer "level"
     t.integer "strength"
     t.integer "dexterity"
     t.integer "constitution"
     t.integer "intelligence"
+    t.integer "wisdom"
     t.integer "charisma"
     t.integer "hitpoints"
+    t.integer "max_hp"
     t.integer "age"
     t.integer "height"
     t.integer "weight"
@@ -56,8 +58,6 @@ ActiveRecord::Schema.define(version: 2019_07_25_220414) do
     t.string "alignment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "max_hp"
-    t.integer "wisdom"
   end
 
   create_table "proficiencies", force: :cascade do |t|
