@@ -84,4 +84,5 @@ caleb = Character.find_or_create_by(
     alignment: "True Neutral",
 )
 caleb.skills = [Skill.find_by(name: "Arcana"), Skill.find_by(name: "History")]
+caleb.proficiencies = [Proficiency.find_by(name: "Skill: Arcana") , Proficiency.find_by(name: "Skill: History")] + caleb.char_class.proficiencies
 #  binding.pry

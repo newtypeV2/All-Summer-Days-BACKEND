@@ -8,6 +8,9 @@ class CharactersController < ApplicationController
             :char_class=>{
                 :except => [:id,:created_at, :updated_at]
             },
+            :proficiencies=>{
+                :except => [:id,:created_at, :updated_at]
+            },
             :skills => {
                 :except => [:id,:created_at, :updated_at]
             }
