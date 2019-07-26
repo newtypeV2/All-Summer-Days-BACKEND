@@ -85,4 +85,34 @@ caleb = Character.find_or_create_by(
 )
 caleb.skills = [Skill.find_by(name: "Arcana"), Skill.find_by(name: "History")]
 caleb.proficiencies = [Proficiency.find_by(name: "Skill: Arcana") , Proficiency.find_by(name: "Skill: History")] + caleb.char_class.proficiencies
+
+
+
+
+
+drakthar = Character.find_or_create_by(
+    firstname: "Drakthar",
+    lastname: "BigClub",
+    char_class_id: CharClass.find_by(name: "Barbarian").id,
+    level: 2,
+    strength: 16,
+    dexterity: 11,
+    constitution: 14,
+    intelligence: 9,
+    wisdom: 9,
+    charisma: 5,
+    hitpoints: 16,
+    max_hp: 16,
+    age: 25,
+    height: 213,
+    weight: 280,
+    eyes: "blue",
+    skin: "gray",
+    hair: "brown",
+    background: "Orphan From Clan",
+    alignment: "Chaotic Neutral",
+)
+drakthar.skills = [Skill.find_by(name: "Athletics"), Skill.find_by(name: "Survival")]
+drakthar.proficiencies = [Proficiency.find_by(name: "Skill: Athletics") , Proficiency.find_by(name: "Skill: Survival")] + drakthar.char_class.proficiencies
+
 #  binding.pry
