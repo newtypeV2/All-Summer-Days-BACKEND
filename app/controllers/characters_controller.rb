@@ -6,7 +6,7 @@ class CharactersController < ApplicationController
         :except => [:created_at, :updated_at],
         :include => {
             :char_class=>{
-                :only => [:name,:hit_die]
+                :only => [:id,:name,:hit_die]
             },
             :proficiencies=>{
                 :except => [:id,:created_at, :updated_at]
