@@ -1,7 +1,7 @@
 class CharClassesController < ApplicationController
     def index
         render json: CharClass.all.to_json(
-            :except => [:id,:created_at, :updated_at,:proficiency_skill,:proficiency_tools,:proficiency_instruments],
+            :except => [:created_at, :updated_at,:proficiency_skill,:proficiency_tools,:proficiency_instruments],
             # :include => {
             #     :proficiencies => {
             #         :except => [:id,:created_at, :updated_at]
