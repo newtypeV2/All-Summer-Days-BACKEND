@@ -6,5 +6,10 @@ class Character < ApplicationRecord
     # has_many :skill_proficiencies
     # has_many :skills, through: :skill_proficiencies
 
-   
+    include Rails.application.routes.url_helpers
+
+    def cover_url 
+        rails_blob_path(self.avatar, disposition: "attachment", only_path: true)
+      end
+
 end
