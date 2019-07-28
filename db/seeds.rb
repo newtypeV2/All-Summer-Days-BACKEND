@@ -33,6 +33,13 @@ classesHash["results"].map do |c|
                 profid=Proficiency.where("name like ?","%#{st["name"]}%").first.id
                 CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
             end
+<<<<<<< HEAD
+            if ccid == 6
+                JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["from"].map do |profc|
+                    skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
+                    CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
+                end
+=======
             if (ccid==2)
                     JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
                         skillid=Proficiency.find_by(name: profc["name"]).id
@@ -66,6 +73,7 @@ classesHash["results"].map do |c|
                     end
                     newClass.proficiency_skill=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["choose"]
                     newClass.save
+>>>>>>> 286aa006c8cf866c0d4e44da66a4b152467ec7fd
             else
                     JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
                         skillid=Proficiency.find_by(name: profc["name"]).id
