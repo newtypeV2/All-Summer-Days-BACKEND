@@ -40,7 +40,6 @@ classesHash["results"].map do |c| CharClass.find_or_create_by(name: c["name"]) e
                 CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
             end
             if ccid == 6
-                
                 JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["from"].map do |profc|
                     skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
                     CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
