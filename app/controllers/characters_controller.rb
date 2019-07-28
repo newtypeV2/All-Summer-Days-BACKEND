@@ -2,24 +2,7 @@ class CharactersController < ApplicationController
 
     def index 
        characters = Character.all
-       render json: characters.to_json(
-        :except => [:created_at, :updated_at],
-        :include => {
-            :char_class=>{
-                :only => [:id,:name,:hit_die]
-            },
-            :proficiencies=>{
-                :except => [:id,:created_at, :updated_at]
-            }
-            # ,
-            #     :avatar=>{
-            #     }
-            # ,
-            # :skills => {
-            #     :except => [:id,:created_at, :updated_at]
-            # }
-        }
-    )
+       render json: characters.to_json(default)
     end 
 
     def show
@@ -51,10 +34,37 @@ class CharactersController < ApplicationController
     end 
 
     def default 
-        {
-            :except => [:created_at, :updated_at]
+    {
+        :except => [:created_at, :updated_at],
+        :include => {
+            :char_class=>{
+                :only => [:id,:name,:hit_die]
+            },
+            :proficiencies=>{
+                :except => [:id,:created_at, :updated_at]
+            }
+        }
     }
         
    
     end 
 end
+
+
+# Format include AS
+# :except => [:created_at, :updated_at],
+# :include => {
+#     :char_class=>{
+#         :only => [:id,:name,:hit_die]
+#     },
+#     :proficiencies=>{
+#         :except => [:id,:created_at, :updated_at]
+#     }
+#     ,
+#         :avatar=>{
+#         }
+#     ,
+#     :skills => {
+#         :except => [:id,:created_at, :updated_at]
+#     }
+# }
