@@ -9,11 +9,6 @@ classURL = "http://www.dnd5eapi.co/api/classes"
 proficienciesURL = "http://www.dnd5eapi.co/api/proficiencies"
 skillsURL = "http://www.dnd5eapi.co/api/skills"
 
-
-# proficiencies["results"].filter do |prof| 
-#     !(prof["name"].include?("Skill:") || prof["name"].include?("Saving Throw:"))
-# end.map {|prof| Proficiency.find_or_create_by(name: prof["name"])}
-
 response = RestClient.get(proficienciesURL)
 proficiencies = JSON.parse(response)
 proficiencies["results"].map do |prof| 
@@ -27,10 +22,9 @@ end
 
 response = RestClient.get(classURL)
 classesHash = JSON.parse(response)
-classesHash["results"].map do |c| CharClass.find_or_create_by(name: c["name"]) end
-
-    classesHash["results"].map do |c| 
-        ccid=CharClass.find_or_create_by(name: c["name"]).id
+classesHash["results"].map do |c| 
+    newClass = CharClass.find_or_create_by(name: c["name"], hit_die: JSON.parse(RestClient.get(c["url"]))["hit_die"])
+    ccid= newClass.id
             JSON.parse(RestClient.get(c["url"]))["proficiencies"].map do |prof|
                 profid = Proficiency.find_by(name: prof["name"]).id
                 CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
@@ -39,26 +33,70 @@ classesHash["results"].map do |c| CharClass.find_or_create_by(name: c["name"]) e
                 profid=Proficiency.where("name like ?","%#{st["name"]}%").first.id
                 CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
             end
+<<<<<<< HEAD
             if ccid == 6
                 JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["from"].map do |profc|
                     skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
                     CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
                 end
+=======
+            if (ccid==2)
+                    JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
+                        skillid=Proficiency.find_by(name: profc["name"]).id
+                        CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: skillid)
+                    end
+                    newClass.proficiency_skill=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["choose"]
+                    newClass.save
+                    JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][1]["from"].map do |profc|
+                        skillid=Proficiency.find_by(name: profc["name"]).id
+                        CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: skillid)
+                    end
+                    newClass.proficiency_instruments=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][1]["choose"]
+                    newClass.save
+                    
+            elsif (ccid==6)
+                    JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
+                        skillid=Proficiency.find_by(name: profc["name"]).id
+                        CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: skillid)
+                    end
+                    newClass.proficiency_tools=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["choose"]
+                    newClass.save
+                    JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][1]["from"].map do |profc|
+                        skillid=Proficiency.find_by(name: profc["name"]).id
+                        CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: skillid)
+                    end
+                    newClass.proficiency_instruments=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][1]["choose"]
+                    newClass.save
+                    JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["from"].map do |profc|
+                        skillid=Proficiency.find_by(name: profc["name"]).id
+                        CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: skillid)
+                    end
+                    newClass.proficiency_skill=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["choose"]
+                    newClass.save
+>>>>>>> 286aa006c8cf866c0d4e44da66a4b152467ec7fd
             else
-                JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
-                    skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
-                    CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
-                end
+                    JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
+                        skillid=Proficiency.find_by(name: profc["name"]).id
+                        CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: skillid)
+                    end
+                    newClass.proficiency_skill=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["choose"]
+                    newClass.save
             end
+            
+            #JSON.parse(RestClient.get("http://www.dnd5eapi.co/api/classes/3"))["proficiency_choices"][0]["from"]
+            # if ccid == 6
+                
+            #     JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["from"].map do |profc|
+            #         skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
+            #         CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
+            #     end
+            # else
+            #     JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
+            #         skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
+            #         CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
+            #     end
+            # end
     end
-
-
-# skillsHash = JSON.parse(RestClient.get(proficienciesURL))["results"].filter do |prof|
-#     prof["name"].include?("Skill:")
-# end
-# testy = skillsHash.map do |skills|
-#     skills["name"]
-# end
 
 caleb = Character.find_or_create_by(
     firstname: "Caleb",
@@ -82,12 +120,10 @@ caleb = Character.find_or_create_by(
     background: "Liam O'Brien's Boy",
     alignment: "True Neutral",
 )
-caleb.skills = [Skill.find_by(name: "Arcana"), Skill.find_by(name: "History")]
-caleb.proficiencies = [Proficiency.find_by(name: "Skill: Arcana") , Proficiency.find_by(name: "Skill: History")] + caleb.char_class.proficiencies
 
-
-
-
+caleb.proficiency_ids = caleb.char_class.passive_proficiencies().map {|prof| prof[:id]} + caleb.char_class.saving_throws().map {|prof| prof[:id]} +
+[Proficiency.find_by(name: "Skill: Arcana").id , Proficiency.find_by(name: "Skill: History").id]
+# caleb.avatar.attach(io: File.open("./DND Sprites/wizard.gif"), filename: "wizard.gif", content_type: "image/gif")
 
 drakthar = Character.find_or_create_by(
     firstname: "Drakthar",
@@ -111,7 +147,7 @@ drakthar = Character.find_or_create_by(
     background: "Orphan From Clan",
     alignment: "Chaotic Neutral",
 )
-drakthar.skills = [Skill.find_by(name: "Athletics"), Skill.find_by(name: "Survival")]
-drakthar.proficiencies = [Proficiency.find_by(name: "Skill: Athletics") , Proficiency.find_by(name: "Skill: Survival")] + drakthar.char_class.proficiencies
 
-#  binding.pry
+drakthar.proficiency_ids = drakthar.char_class.passive_proficiencies().map {|prof| prof[:id]} + drakthar.char_class.saving_throws().map {|prof| prof[:id]} +
+[Proficiency.find_by(name: "Skill: Athletics").id , Proficiency.find_by(name: "Skill: Survival").id]
+# drakthar.avatar.attach(io: File.open("./DND Sprites/barbarian.gif"), filename: "barbarian.gif", content_type: "image/gif")
