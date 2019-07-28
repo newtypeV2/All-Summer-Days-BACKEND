@@ -33,13 +33,6 @@ classesHash["results"].map do |c|
                 profid=Proficiency.where("name like ?","%#{st["name"]}%").first.id
                 CharClassProficiency.find_or_create_by(char_class_id: ccid , proficiency_id: profid)
             end
-<<<<<<< HEAD
-            if ccid == 6
-                JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["from"].map do |profc|
-                    skillid=Skill.where("name like ?",profc["name"].split(": ").last).first.id
-                    CharClassSkill.find_or_create_by(char_class_id: ccid , skill_id: skillid)
-                end
-=======
             if (ccid==2)
                     JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
                         skillid=Proficiency.find_by(name: profc["name"]).id
@@ -73,7 +66,6 @@ classesHash["results"].map do |c|
                     end
                     newClass.proficiency_skill=JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][2]["choose"]
                     newClass.save
->>>>>>> 286aa006c8cf866c0d4e44da66a4b152467ec7fd
             else
                     JSON.parse(RestClient.get(c["url"]))["proficiency_choices"][0]["from"].map do |profc|
                         skillid=Proficiency.find_by(name: profc["name"]).id
@@ -152,6 +144,9 @@ drakthar.proficiency_ids = drakthar.char_class.passive_proficiencies().map {|pro
 [Proficiency.find_by(name: "Skill: Athletics").id , Proficiency.find_by(name: "Skill: Survival").id]
 # drakthar.avatar.attach(io: File.open("./DND Sprites/barbarian.gif"), filename: "barbarian.gif", content_type: "image/gif")
 
+Character.create({
+    firstname: "Stasis", lastname: "Of Fis", char_class_id: 9, level: 2, strength: 12, dexterity: 18, constitution: 7, intelligence: 9, wisdom: 9, charisma: 15, hitpoints: 12, max_hp: 12, age: 29, height: 180, weight: 170, eyes: "brown", skin: "tan", hair: "brown",background: "Wanna be thug.",alignment: "Chaotic Neutral",proficiency_ids: [105,113,118,121,1,19,42,46,48,54,96,100,102]
+    })
 
 # character:
 # {
