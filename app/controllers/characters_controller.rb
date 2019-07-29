@@ -34,20 +34,34 @@ class CharactersController < ApplicationController
     end 
 
     def default 
-    {
-        :except => [:created_at, :updated_at],
-        :include => {
-            :char_class=>{
-                :only => [:id,:name,:hit_die]
-            },
-            :proficiencies=>{
-                :except => [:id,:created_at, :updated_at]
+        {
+            :except => [:created_at, :updated_at],
+            :include => {
+                :char_class=>{
+                    :only => [:id,:name,:hit_die]
+                },
+                :proficiencies=>{
+                    :except => [:id,:created_at, :updated_at]
+                }
             }
         }
-    }
-        
-   
+    end
+    
+    def test_serial
+        {
+            :except => [:created_at, :updated_at],
+            :methods => [:image_download,:cover_url],
+            :include => {
+                :char_class=>{
+                    :only => [:id,:name,:hit_die]
+                },
+                :proficiencies=>{
+                    :except => [:id,:created_at, :updated_at]
+                }
+            }
+        }
     end 
+
 end
 
 
