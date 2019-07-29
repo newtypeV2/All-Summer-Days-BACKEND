@@ -11,7 +11,6 @@ class Character < ApplicationRecord
     def avatar_url 
       # Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
       Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
-
     end
 
     def image_url

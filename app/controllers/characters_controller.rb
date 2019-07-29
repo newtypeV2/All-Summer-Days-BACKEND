@@ -2,7 +2,7 @@ class CharactersController < ApplicationController
 
     def index 
        characters = Character.all
-       render json: characters.to_json(default)
+       render json: characters.to_json(avatar_inc)
     end 
 
     def show
