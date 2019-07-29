@@ -54,5 +54,7 @@ Rails.application.configure do
 
   ip=Socket.ip_address_list.detect{|intf| intf.ipv4_private?}
   Rails.application.routes.default_url_options[:host] = ip.ip_address+":5000"
+  # config.action_cable.url = "ws://localhost:3334/cable"
+  config.action_cable.url = "ws://"+ip.ip_address+":3334/cable"
   # Rails.application.routes.default_url_options[:host] = "localhost:5000"
 end
