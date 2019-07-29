@@ -115,7 +115,7 @@ caleb = Character.find_or_create_by(
 
 caleb.proficiency_ids = caleb.char_class.passive_proficiencies().map {|prof| prof[:id]} + caleb.char_class.saving_throws().map {|prof| prof[:id]} +
 [Proficiency.find_by(name: "Skill: Arcana").id , Proficiency.find_by(name: "Skill: History").id]
-# caleb.avatar.attach(io: File.open("./DND Sprites/wizard.gif"), filename: "wizard.gif", content_type: "image/gif")
+caleb.avatar.attach(io: File.open("./DND Sprites/wizard.gif"), filename: "wizard.gif", content_type: "image/gif")
 
 drakthar = Character.find_or_create_by(
     firstname: "Drakthar",
@@ -142,11 +142,12 @@ drakthar = Character.find_or_create_by(
 
 drakthar.proficiency_ids = drakthar.char_class.passive_proficiencies().map {|prof| prof[:id]} + drakthar.char_class.saving_throws().map {|prof| prof[:id]} +
 [Proficiency.find_by(name: "Skill: Athletics").id , Proficiency.find_by(name: "Skill: Survival").id]
-# drakthar.avatar.attach(io: File.open("./DND Sprites/barbarian.gif"), filename: "barbarian.gif", content_type: "image/gif")
+drakthar.avatar.attach(io: File.open("./DND Sprites/barbarian.gif"), filename: "barbarian.gif", content_type: "image/gif")
 
 Character.create({
     firstname: "Stasis", lastname: "Of Fis", char_class_id: 9, level: 2, strength: 12, dexterity: 18, constitution: 7, intelligence: 9, wisdom: 9, charisma: 15, hitpoints: 12, max_hp: 12, age: 29, height: 180, weight: 170, eyes: "brown", skin: "tan", hair: "brown",background: "Wanna be thug.",alignment: "Chaotic Neutral",proficiency_ids: [105,113,118,121,1,19,42,46,48,54,96,100,102]
     })
+Character.find_by(firstname:"Stasis").avatar.attach(io: File.open("./DND Sprites/fighter.gif"), filename: "fighter.gif", content_type: "image/gif")
 
 # character:
 # {

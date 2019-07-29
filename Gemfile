@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+
+# gem 'activestorage_direct_disk'
+
 ruby '2.6.1'
 gem 'rest-client'
 gem 'pry', '~> 0.12.2'

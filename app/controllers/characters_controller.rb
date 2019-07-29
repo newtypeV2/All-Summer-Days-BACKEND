@@ -7,7 +7,7 @@ class CharactersController < ApplicationController
 
     def show
         character = Character.find_by(id: params[:id])
-        render json: character.to_json(default)
+        render json: character.to_json(avatar_inc)
     end 
 
     def update
@@ -47,10 +47,10 @@ class CharactersController < ApplicationController
         }
     end
     
-    def test_serial
+    def avatar_inc
         {
             :except => [:created_at, :updated_at],
-            :methods => [:image_download,:cover_url],
+            :methods => [:avatar_url,:image_url],
             :include => {
                 :char_class=>{
                     :only => [:id,:name,:hit_die]

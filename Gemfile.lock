@@ -42,6 +42,8 @@ GEM
       actionpack (= 5.2.3)
       activerecord (= 5.2.3)
       marcel (~> 0.3.1)
+    activestorage_direct_disk (0.3.2)
+      activestorage
     activesupport (5.2.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
@@ -163,6 +165,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  activestorage_direct_disk
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug

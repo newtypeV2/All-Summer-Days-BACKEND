@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # mount ActionCable.server => '/cable' 
   get '/characters' => 'characters#index'
   get '/characters/:id' => 'characters#show'
   patch '/characters/:id' => 'characters#update'

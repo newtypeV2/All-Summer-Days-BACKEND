@@ -8,13 +8,14 @@ class Character < ApplicationRecord
 
     include Rails.application.routes.url_helpers
 
-    def cover_url 
+    def avatar_url 
+      # Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
       Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
 
     end
 
-    def image_download
-      # link_to(self.avatar)
+    def image_url
+      url_for(self.avatar)
     end
 
 end
