@@ -50,7 +50,7 @@ class CharactersController < ApplicationController
     def avatar_inc
         {
             :except => [:created_at, :updated_at],
-            :methods => [:avatar_url,:image_url],
+            :methods => [:avatar_available,:image_url],
             :include => {
                 :char_class=>{
                     :only => [:id,:name,:hit_die]

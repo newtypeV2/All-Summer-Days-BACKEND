@@ -8,9 +8,9 @@ class Character < ApplicationRecord
 
     include Rails.application.routes.url_helpers
 
-    def avatar_url 
+    def avatar_available 
       # Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
-      Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
+      self.avatar.attached?
     end
 
     def image_url
