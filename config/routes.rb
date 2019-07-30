@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get '/class' => 'char_classes#index'
   post '/signup' => 'login#create'
   post '/login' => 'login#new'
+  get '/users/:id' => 'users#show'
 end
