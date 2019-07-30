@@ -47,6 +47,13 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    anycable (0.6.3)
+      anyway_config (~> 1.4.2)
+      grpc (~> 1.17)
+    anycable-rails (0.6.4)
+      anycable (~> 0.6.0)
+      rails (>= 5)
+    anyway_config (1.4.4)
     arel (9.0.0)
     bcrypt (3.1.13)
     bootsnap (1.4.4)
@@ -58,12 +65,18 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
-    domain_name (0.5.20180417)
+    domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.8.0)
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    google-protobuf (3.9.0)
+    googleapis-common-protos-types (1.0.4)
+      google-protobuf (~> 3.0)
+    grpc (1.22.0)
+      google-protobuf (~> 3.8)
+      googleapis-common-protos-types (~> 1.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.6.0)
@@ -85,7 +98,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.0331)
     mimemagic (0.3.3)
-    mini_magick (4.9.3)
+    mini_magick (4.9.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -131,6 +144,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.1.2)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -163,6 +177,8 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  anycable (~> 0.6.0)
+  anycable-rails
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
@@ -173,6 +189,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rack-cors
   rails (~> 5.2.3)
+  redis (>= 4.0)
   rest-client
   spring
   spring-watcher-listen (~> 2.0.0)

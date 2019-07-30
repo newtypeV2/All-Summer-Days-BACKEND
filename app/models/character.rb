@@ -8,8 +8,13 @@ class Character < ApplicationRecord
 
     include Rails.application.routes.url_helpers
 
-    def cover_url 
-        rails_blob_path(self.avatar, disposition: "attachment", only_path: true)
-      end
+    def avatar_available 
+      # Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
+      self.avatar.attached?
+    end
+
+    def image_url
+      url_for(self.avatar)
+    end
 
 end

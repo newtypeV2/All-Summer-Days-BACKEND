@@ -2,12 +2,12 @@ class CharactersController < ApplicationController
 
     def index 
        characters = Character.all
-       render json: characters.to_json(default)
+       render json: characters.to_json(avatar_inc)
     end 
 
     def show
         character = Character.find_by(id: params[:id])
-        render json: character.to_json(default)
+        render json: character.to_json(avatar_inc)
     end 
 
     def update
@@ -35,20 +35,34 @@ class CharactersController < ApplicationController
     end 
 
     def default 
-    {
-        :except => [:created_at, :updated_at],
-        :include => {
-            :char_class=>{
-                :only => [:id,:name,:hit_die]
-            },
-            :proficiencies=>{
-                :except => [:id,:created_at, :updated_at]
+        {
+            :except => [:created_at, :updated_at],
+            :include => {
+                :char_class=>{
+                    :only => [:id,:name,:hit_die]
+                },
+                :proficiencies=>{
+                    :except => [:id,:created_at, :updated_at]
+                }
             }
         }
-    }
-        
-   
+    end
+    
+    def avatar_inc
+        {
+            :except => [:created_at, :updated_at],
+            :methods => [:avatar_available,:image_url],
+            :include => {
+                :char_class=>{
+                    :only => [:id,:name,:hit_die]
+                },
+                :proficiencies=>{
+                    :except => [:id,:created_at, :updated_at]
+                }
+            }
+        }
     end 
+
 end
 
 

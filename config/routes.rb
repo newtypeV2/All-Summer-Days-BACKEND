@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # mount ActionCable.server => '/cable' 
   get '/characters' => 'characters#index'
   get '/characters/:id' => 'characters#show'
   patch '/characters/:id' => 'characters#update'
@@ -6,4 +7,6 @@ Rails.application.routes.draw do
   delete '/characters/:id' => 'characters#destroy'
   get '/skills' => 'skills#index'
   get '/class' => 'char_classes#index'
+  post '/signup' => 'login#create'
+  post '/login' => 'login#new'
 end

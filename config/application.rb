@@ -16,6 +16,10 @@ require 'rest-client'
 require 'json'
 require 'pry'
 require 'active_support'
+
+require 'socket'
+
+require "anycable/rails"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

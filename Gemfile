@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+
+# gem 'activestorage_direct_disk'
+gem "anycable-rails"
+gem "anycable", "~> 0.6.0"
+gem "redis", ">= 4.0"
 ruby '2.6.1'
 gem 'rest-client'
 gem 'pry', '~> 0.12.2'
