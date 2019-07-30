@@ -9,6 +9,11 @@ classURL = "http://www.dnd5eapi.co/api/classes"
 proficienciesURL = "http://www.dnd5eapi.co/api/proficiencies"
 skillsURL = "http://www.dnd5eapi.co/api/skills"
 
+gian = User.create!(username: "gian", password:"password")
+peter = User.create!(username: "peter", password:"password")
+matt = User.create!(username: "matt", password:"password")
+rob = User.create!(username: "rob", password:"password")
+
 response = RestClient.get(proficienciesURL)
 proficiencies = JSON.parse(response)
 proficiencies["results"].map do |prof| 
@@ -98,6 +103,7 @@ caleb = Character.find_or_create_by(
     hair: "brown",
     background: "Liam O'Brien's Boy",
     alignment: "True Neutral",
+    user_id: matt.id
 )
 
 caleb.proficiency_ids = caleb.char_class.passive_proficiencies().map {|prof| prof[:id]} + caleb.char_class.saving_throws().map {|prof| prof[:id]} +
@@ -125,16 +131,76 @@ drakthar = Character.find_or_create_by(
     hair: "brown",
     background: "Orphan From Clan",
     alignment: "Chaotic Neutral",
+    user_id: peter.id
 )
 
 drakthar.proficiency_ids = drakthar.char_class.passive_proficiencies().map {|prof| prof[:id]} + drakthar.char_class.saving_throws().map {|prof| prof[:id]} +
 [Proficiency.find_by(name: "Skill: Athletics").id , Proficiency.find_by(name: "Skill: Survival").id]
 drakthar.avatar.attach(io: File.open("./DND Sprites/barbarian.gif"), filename: "barbarian.gif", content_type: "image/gif")
 
+
+
 Character.create({
-    firstname: "Stasis", lastname: "Of Fis", char_class_id: 9, level: 2, strength: 12, dexterity: 18, constitution: 7, intelligence: 9, wisdom: 9, charisma: 15, hitpoints: 12, max_hp: 12, age: 29, height: 180, weight: 170, eyes: "brown", skin: "tan", hair: "brown",background: "Wanna be thug.",alignment: "Chaotic Neutral",proficiency_ids: [105,113,118,121,1,19,42,46,48,54,96,100,102]
+    firstname: "Stasis", lastname: "Of Fis", char_class_id: 9, level: 2, strength: 12, dexterity: 18, constitution: 7, intelligence: 9, wisdom: 9, charisma: 15, hitpoints: 12, max_hp: 12, age: 29, height: 180, weight: 170, eyes: "brown", skin: "tan", hair: "brown",background: "Wanna be thug.",alignment: "Chaotic Neutral",proficiency_ids: [105,113,118,121,1,19,42,46,48,54,96,100,102],user_id: gian.id
     })
 Character.find_by(firstname:"Stasis").avatar.attach(io: File.open("./DND Sprites/fighter.gif"), filename: "fighter.gif", content_type: "image/gif")
+
+
+
+matthias = Character.find_or_create_by(
+    firstname: "Matthias",
+    lastname: "Willful",
+    char_class_id: CharClass.find_by(name: "Sorcerer").id,
+    level: 2,
+    strength: 8,
+    dexterity: 8,
+    constitution: 8,
+    intelligence: 14,
+    wisdom: 10,
+    charisma: 8,
+    hitpoints: 16,
+    max_hp: 16,
+    age: 25,
+    height: 180,
+    weight: 250,
+    eyes: "Brown",
+    skin: "Yellow",
+    hair: "Black",
+    background: "A very intelligent young man whom was ahead of his class. Unfortunately, one day, he was just expelled for being an overachiever. Or so he says....",
+    alignment: "Chaotic Good",
+    user_id: matt.id
+)
+
+matthias.proficiency_ids = matthias.char_class.passive_proficiencies().map {|prof| prof[:id]} + matthias.char_class.saving_throws().map {|prof| prof[:id]} +
+[Proficiency.find_by(name: "Skill: Arcana").id , Proficiency.find_by(name: "Skill: Insight").id]
+matthias.avatar.attach(io: File.open("./DND Sprites/sorceror.gif"), filename: "sorceror.gif", content_type: "image/gif")
+
+merly = Character.find_or_create_by(
+    firstname: "Merly",
+    lastname: "Bloodstorm",
+    char_class_id: CharClass.find_by(name: "Cleric").id,
+    level: 2,
+    strength: 12,
+    dexterity: 8,
+    constitution: 8,
+    intelligence: 10,
+    wisdom: 12,
+    charisma: 12,
+    hitpoints: 16,
+    max_hp: 16,
+    age: 21,
+    height: 160,
+    weight: 140,
+    eyes: "Blue",
+    skin: "Fair",
+    hair: "Brown",
+    background: "A very energetic cleric.",
+    alignment: "Chaotic Good",
+    user_id: peter.id
+)
+merly.proficiency_ids = merly.char_class.passive_proficiencies().map {|prof| prof[:id]} + merly.char_class.saving_throws().map {|prof| prof[:id]} +
+[Proficiency.find_by(name: "Skill: History").id , Proficiency.find_by(name: "Skill: Persuasion").id]
+merly.avatar.attach(io: File.open("./DND Sprites/cleric.gif"), filename: "cleric.gif", content_type: "image/gif")
 
 # character:
 # {

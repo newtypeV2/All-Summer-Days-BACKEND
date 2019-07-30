@@ -1,5 +1,6 @@
 class Character < ApplicationRecord
     belongs_to :char_class
+    belongs_to :user
     has_many :character_proficiencies
     has_many :proficiencies, through: :character_proficiencies
     has_one_attached :avatar
