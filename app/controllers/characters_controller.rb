@@ -17,6 +17,7 @@ class CharactersController < ApplicationController
     end 
 
     def create 
+        byebug
         character = Character.create(character_params) 
         render json: character 
     end 
@@ -30,7 +31,7 @@ class CharactersController < ApplicationController
     private 
 
     def character_params
-        params.require(:character).permit(:firstname, :lastname, :class_id, :level, :strength, :dexterity, :constitution, :intelligence, :charisma, :age, :height, :weight, :eyes, :skin, :hair, :background, :alignment)
+        params.require(:character).permit(:firstname, :lastname, :char_class_id, :level, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :hitpoints, :max_hp, :age, :height, :weight, :eyes, :skin, :hair, :background, :alignment, :proficiency_ids => [])
     end 
 
     def default 
