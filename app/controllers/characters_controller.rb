@@ -13,13 +13,12 @@ class CharactersController < ApplicationController
     def update
         character = Character.find_by(id: params[:id])
         character.update(character_params)
-        render json: character.to_json(default)
+        render json: character.to_json(avatar_inc)
     end 
 
     def create 
-        byebug
         character = Character.create(character_params) 
-        render json: character 
+        render json: character.to_json(avatar_inc)
     end 
 
     def destroy 

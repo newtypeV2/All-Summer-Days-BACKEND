@@ -14,7 +14,7 @@ class Character < ApplicationRecord
     end
 
     def image_url
-      url_for(self.avatar)
+      self.avatar_available ? url_for(self.avatar) : nil
     end
 
 end
