@@ -30,7 +30,7 @@ class CharactersController < ApplicationController
     private 
 
     def character_params
-        params.require(:character).permit(:firstname, :lastname, :char_class_id, :level, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :hitpoints, :max_hp, :age, :height, :weight, :eyes, :skin, :hair, :background, :alignment,:user_id,:proficiency_ids => [])
+        params.require(:character).permit(:firstname, :lastname, :char_class_id, :level, :strength, :dexterity, :constitution, :intelligence, :wisdom, :charisma, :hitpoints, :max_hp, :age, :height, :weight, :eyes, :skin, :hair, :background, :alignment,:user_id,:proficiency_ids => [], :avatar => [])
     end 
 
     def default 
