@@ -20,6 +20,9 @@ class UsersController < ApplicationController
                         },
                         :proficiencies=>{
                             :except => [:id,:created_at, :updated_at]
+                        },
+                        :campaigns=>{
+                        :except => [:id,:created_at, :updated_at]
                         }
                     }
                 }
