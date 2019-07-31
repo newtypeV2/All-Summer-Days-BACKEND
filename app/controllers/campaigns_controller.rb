@@ -1,16 +1,22 @@
-class UsersController < ApplicationController
+class CampaignsController < ApplicationController
     def show
-        render json: User.find(params[:id]).to_json(user_default)
+        render json: Campaign.find(params[:id]).to_json(campaign_default)
+    end
+
+    def index
+        render json: Campaign.all.to_json(
+            :except => [:created_at, :updated_at]
+        )
     end
 
     private
 
-    def user_default
+    def campaign_default
         {
             :except => [:created_at, :updated_at,:password_digest],
             :include => {
-                :campaigns=>{
-                            :except =>[:created_at,:updated_at]
+                :users=>{
+                    :except => [:id,:created_at, :updated_at]
                 },
                 :characters=>{
                     :methods => [:avatar_available,:image_url,:in_campaign],
@@ -26,4 +32,5 @@ class UsersController < ApplicationController
             }
         }
     end 
+
 end

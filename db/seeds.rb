@@ -13,6 +13,7 @@ gian = User.create!(username: "gian", password:"password")
 peter = User.create!(username: "peter", password:"password")
 matt = User.create!(username: "matt", password:"password")
 rob = User.create!(username: "rob", password:"password")
+dm = User.create!(username: "DM", password:"password")
 
 response = RestClient.get(proficienciesURL)
 proficiencies = JSON.parse(response)
@@ -144,7 +145,7 @@ Character.create({
     firstname: "Stasis", lastname: "Of Fis", char_class_id: 9, level: 2, strength: 12, dexterity: 18, constitution: 7, intelligence: 9, wisdom: 9, charisma: 15, hitpoints: 12, max_hp: 12, age: 29, height: 180, weight: 170, eyes: "brown", skin: "tan", hair: "brown",background: "Wanna be thug.",alignment: "Chaotic Neutral",proficiency_ids: [105,113,118,121,1,19,42,46,48,54,96,100,102],user_id: gian.id
     })
 Character.find_by(firstname:"Stasis").avatar.attach(io: File.open("./DND Sprites/fighter.gif"), filename: "fighter.gif", content_type: "image/gif")
-
+stasis = Character.find_by(firstname:"Stasis")
 
 
 matthias = Character.find_or_create_by(
@@ -196,13 +197,42 @@ merly = Character.find_or_create_by(
     hair: "Brown",
     background: "A very energetic cleric.",
     alignment: "Chaotic Good",
-    user_id: peter.id
+    user_id: rob.id
 )
 merly.proficiency_ids = merly.char_class.passive_proficiencies().map {|prof| prof[:id]} + merly.char_class.saving_throws().map {|prof| prof[:id]} +
 [Proficiency.find_by(name: "Skill: History").id , Proficiency.find_by(name: "Skill: Persuasion").id]
 merly.avatar.attach(io: File.open("./DND Sprites/cleric.gif"), filename: "cleric.gif", content_type: "image/gif")
 
-# character:
-# {
-# firstname: "Stasis", lastname: "Of Fis", char_class_id: 9, level: 2, strength: 12, dexterity: 18, constitution: 7, intelligence: 9, wisdom: 9, charisma: 15, hitpoints: 12, max_hp: 12, age: 29, height: 180, weight: 170, eyes: "brown", skin: "tan", hair: "brown",background: "Wanna be thug.",alignment: "Chaotic Neutral",proficiency_ids: [105,113,118,121,1,19,42,46,48,54,96,100,102]
-# }
+boaty = Character.find_or_create_by(
+    firstname: "Boaty",
+    lastname: "McBoatface",
+    char_class_id: CharClass.find_by(name: "Barbarian").id,
+    level: 2,
+    strength: 17,
+    dexterity: 12,
+    constitution: 15,
+    intelligence: 14,
+    wisdom: 18,
+    charisma: 20,
+    hitpoints: 30,
+    max_hp: 30,
+    age: 21,
+    height: 190,
+    weight: 180,
+    eyes: "Blue",
+    skin: "White",
+    hair: "Black",
+    background: "In this game, Boaty wrecks you!",
+    alignment: "Chaotic Good",
+    user_id: gian.id
+)
+boaty.proficiency_ids = boaty.char_class.passive_proficiencies().map {|prof| prof[:id]} + boaty.char_class.saving_throws().map {|prof| prof[:id]} +
+[Proficiency.find_by(name: "Skill: Intimidation").id , Proficiency.find_by(name: "Skill: Persuasion").id]
+boaty.avatar.attach(io: File.open("./DND Sprites/druid.gif"), filename: "druid.gif", content_type: "image/gif")
+
+campaign1 = Campaign.find_or_create_by(title:"Act1 - Death and Strawberries",started:true)
+campaign2 = Campaign.find_or_create_by(title:"Act2 - Tyrael Hates Me",started:false)
+
+campaign1.characters = [boaty,drakthar,matthias,merly]
+campaign2.characters = [stasis]
+dm.campaigns = [campaign1,campaign2]

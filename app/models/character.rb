@@ -3,9 +3,9 @@ class Character < ApplicationRecord
     belongs_to :user
     has_many :character_proficiencies
     has_many :proficiencies, through: :character_proficiencies
+    has_many :character_campaigns
+    has_many :campaigns, through: :character_campaigns
     has_one_attached :avatar
-    # has_many :skill_proficiencies
-    # has_many :skills, through: :skill_proficiencies
 
     include Rails.application.routes.url_helpers
 
@@ -16,6 +16,10 @@ class Character < ApplicationRecord
 
     def image_url
       self.avatar_available ? url_for(self.avatar) : nil
+    end
+
+    def in_campaign
+      self.campaigns.length > 0 ? true : false
     end
 
 end

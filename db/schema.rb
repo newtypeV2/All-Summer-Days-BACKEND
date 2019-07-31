@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_151335) do
+ActiveRecord::Schema.define(version: 2019_07_31_003355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,20 @@ ActiveRecord::Schema.define(version: 2019_07_30_151335) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "campaign_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "campaign_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "title"
+    t.boolean "started"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "char_class_proficiencies", force: :cascade do |t|
     t.integer "char_class_id"
     t.integer "proficiency_id"
@@ -58,6 +72,13 @@ ActiveRecord::Schema.define(version: 2019_07_30_151335) do
     t.integer "proficiency_tools"
     t.integer "proficiency_instruments"
     t.string "hit_die"
+  end
+
+  create_table "character_campaigns", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "campaign_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "character_proficiencies", force: :cascade do |t|

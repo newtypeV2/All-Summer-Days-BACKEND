@@ -4,4 +4,7 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
 
   has_many :characters
+  has_many :campaign_users
+  has_many :campaigns, through: :campaign_users
+
 end

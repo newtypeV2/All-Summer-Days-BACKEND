@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   post '/signup' => 'login#create'
   post '/login' => 'login#new'
   get '/users/:id' => 'users#show'
+  get 'campaigns/:id' => 'campaigns#show'
+  get 'campaigns' => 'campaigns#index'
 end
