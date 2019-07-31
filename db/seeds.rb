@@ -230,6 +230,34 @@ boaty.proficiency_ids = boaty.char_class.passive_proficiencies().map {|prof| pro
 [Proficiency.find_by(name: "Skill: Intimidation").id , Proficiency.find_by(name: "Skill: Persuasion").id]
 boaty.avatar.attach(io: File.open("./DND Sprites/druid.gif"), filename: "druid.gif", content_type: "image/gif")
 
+
+umad = Character.find_or_create_by(
+    firstname: "Umad",
+    lastname: "QuestionMark",
+    char_class_id: CharClass.find_by(name: "Barbarian").id,
+    level: 1,
+    strength: 30,
+    dexterity: 30,
+    constitution: 30,
+    intelligence: 30,
+    wisdom: 30,
+    charisma: 30,
+    hitpoints: 100,
+    max_hp: 100,
+    age: 20,
+    height: 190,
+    weight: 180,
+    eyes: "White",
+    skin: "White",
+    hair: "White",
+    background: "UNLIMITED POWERRRRR!!!",
+    alignment: "Chaotic Evil",
+    user_id: dm.id
+)
+umad.proficiency_ids = umad.char_class.passive_proficiencies().map {|prof| prof[:id]} + umad.char_class.saving_throws().map {|prof| prof[:id]} +
+[Proficiency.find_by(name: "Skill: Intimidation").id , Proficiency.find_by(name: "Skill: Persuasion").id]
+umad.avatar.attach(io: File.open("./DND Sprites/bard.gif"), filename: "bard.gif", content_type: "image/gif")
+
 campaign1 = Campaign.find_or_create_by(title:"Act1 - Death and Strawberries",started:true)
 campaign2 = Campaign.find_or_create_by(title:"Act2 - Tyrael Hates Me",started:false)
 
